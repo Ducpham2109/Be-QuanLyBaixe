@@ -1,0 +1,15 @@
+D:\CCC\css\DATN.Api\DATN.Core\bin\Debug\net5.0\DATN.Core.deps.json
+D:\CCC\css\DATN.Api\DATN.Core\bin\Debug\net5.0\DATN.Core.dll
+D:\CCC\css\DATN.Api\DATN.Core\bin\Debug\net5.0\DATN.Core.pdb
+D:\CCC\css\DATN.Api\DATN.Core\obj\Debug\net5.0\DATN.Core.csproj.AssemblyReference.cache
+D:\CCC\css\DATN.Api\DATN.Core\obj\Debug\net5.0\DATN.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\CCC\css\DATN.Api\DATN.Core\obj\Debug\net5.0\DATN.Core.AssemblyInfoInputs.cache
+D:\CCC\css\DATN.Api\DATN.Core\obj\Debug\net5.0\DATN.Core.AssemblyInfo.cs
+D:\CCC\css\DATN.Api\DATN.Core\obj\Debug\net5.0\DATN.Core.csproj.CoreCompileInputs.cache
+D:\CCC\css\DATN.Api\DATN.Core\obj\Debug\net5.0\DATN.Core.dll
+D:\CCC\css\DATN.Api\DATN.Core\obj\Debug\net5.0\refint\DATN.Core.dll
+D:\CCC\css\DATN.Api\DATN.Core\obj\Debug\net5.0\DATN.Core.pdb
+D:\CCC\css\DATN.Api\DATN.Core\obj\Debug\net5.0\ref\DATN.Core.dll
+D:\CCC\css\DATN.Api\DATN.Core\bin\Debug\net5.0\DATN.Core.runtimeconfig.json
+D:\CCC\css\DATN.Api\DATN.Core\bin\Debug\net5.0\DATN.Core.runtimeconfig.dev.json
+D:\CCC\css\DATN.Api\DATN.Core\obj\Debug\net5.0\DATN.Core.genruntimeconfig.cache
