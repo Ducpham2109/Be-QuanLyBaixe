@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\DATN.Api",
+    "\\DATN.Api\\Controllers",
+    "\\DATN.Infastructure",
+    "\\DATN.Infastructure\\Repositories",
+    "\\DATN.Infastructure\\Repositories\\AccountRepository"
+  ],
+  "SelectedNode": "\\DATN.Api.sln",
+  "PreviewInSolutionExplorer": false
+}

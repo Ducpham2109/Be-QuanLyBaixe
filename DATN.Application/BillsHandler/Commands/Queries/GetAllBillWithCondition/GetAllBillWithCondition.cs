@@ -62,8 +62,6 @@ namespace DATN.Application.BillsHandler.Commands.Queries.GetAllBillWithCondition
                 result.EntryTime = Bill.EntryTime;
                 result.Username = Bill.Username;
                 result.ParkingCode = Bill.ParkingCode;
-                result.ImageIn = Bill.ImageIn;
-                result.ImageOut = Bill.ImageOut;
                 result.EntryTime = Bill.EntryTime;
                 result.OutTime = Bill.OutTime;
                 result.VehicleyType = Bill.VehicleyType;

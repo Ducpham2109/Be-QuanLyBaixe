@@ -16,7 +16,7 @@ namespace DATN.Core.Entities
         public int MmPrice { get; set; }
         public int NnPrice { get; set; }
         public int NmPrice { get; set; }
-
+        public int Capacity { get; set; }
         public ICollection<Bills> Bills { get; set; }
         public ICollection<Managements> Managements { get; set; }
         

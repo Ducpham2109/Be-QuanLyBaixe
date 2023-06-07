@@ -16,6 +16,8 @@ namespace DATN.Infastructure.Repositories.BillRepository
         Task<int> BGetTotalAsync();
         Task<int> GetRevenveByMonth( int month);
         Task<int> GetRevenveByParkingCodeMonth(int month, int parkingCode);
+        Task<int> GetRevenveByParkingCodeMonthDay(int parkingCode, int month, int day);
+
 
     }
 }

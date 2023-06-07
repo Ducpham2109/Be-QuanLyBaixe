@@ -82,7 +82,48 @@ namespace DATN.Infastructure.Repositories.AccountRepository
                                 .ToListAsync();
             return accounts;
         }
+        public async Task ChangePassword(string userName, string oldPassword, string newPassword)
+        {
+            var account = await BFistOrDefaultAsync(acc => acc.Username == userName && acc.Password == oldPassword);
+            account.Password = newPassword;
+            await _context.SaveChangesAsync();
+        }
+        public async  Task<string> ChangePasswordAsync(string email)
+        {
+            var account = await _context.Set<Accounts>().FirstOrDefaultAsync(a => a.Email.Equals(email));
+            if(account == null)
+            {
+                return "Email không tồn tại ";
+            }
+            account.Password = GeneratePassword();
+            await _context.SaveChangesAsync();
+            string emailBody = $@"Tài khoản: {account.Username}<br>Mật Khẩu: {account.Password}";
+            return emailBody;
+        }
+        private static string GeneratePassword()
+        {
+            var random = new Random();
+            string lowerChars = "abcdefghijklmnopqrstuvwxyz";
+            string upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string numbers = "0123456789";
+            string specialChars = "!@#$%&*,.";
 
+            string password = "";
+            password += lowerChars[random.Next(lowerChars.Length)].ToString();
+            password += upperChars[random.Next(upperChars.Length)].ToString();
+            password += numbers[random.Next(numbers.Length)].ToString();
+
+            // Chỉ có 1 ký tự đặc biệt
+            password += specialChars[random.Next(specialChars.Length)].ToString();
+
+            for (int i = 4; i < 8; i++)
+            {
+                string allChars = lowerChars + upperChars + numbers;
+                password += allChars[random.Next(allChars.Length)].ToString();
+            }
+
+            return password;
+        }
     }
 }
 

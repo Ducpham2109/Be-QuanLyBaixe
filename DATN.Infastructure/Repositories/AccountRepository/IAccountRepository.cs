@@ -15,11 +15,14 @@ namespace DATN.Infastructure.Repositories.AccountRepository
 		public Task<Accounts> CheckAuth(string userName, string password);
 		Task<Accounts> AddAccountAsync(Accounts entity);
         Task<Accounts> UpdateAccountAsync(Accounts entity);
+        public Task ChangePassword(string userName, string oldPassword, string newPassword);
+
         Task DeleteAccountByUsername(string Username);
         Task<Accounts> GetAccountByUsername(string Username);
         Task<IReadOnlyList<Accounts>> BGetPagingAsync(int skip, int pageSize);
         Task<int> BGetTotalAsync();
         Task<List<Accounts>> GetAllAccountWithCondition(string searchTerm);
+        Task<string> ChangePasswordAsync(string email);
 
     }
 }

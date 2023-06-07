@@ -22,6 +22,8 @@ namespace DATN.Application.ParkingHandler.Commam.UpdateParking
         public int MnPrice { get; set; }
         public int MmPrice { get; set; }
         public int NnPrice { get; set; }
+        public int Capacity { get; set; }
+
         public int NmPrice { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime TimingCreate { get; set; }

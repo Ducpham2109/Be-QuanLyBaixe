@@ -16,8 +16,7 @@ namespace DATN.Infastructure.Persistence.Configurations
             modelBuilder.Entity<EntryVehicles>(e =>
             {
                 e.ToTable("EntryVehicles");
-                e.HasKey(e => e.LisenseVehicle);
-               
+                e.HasKey(e => new { e.LisenseVehicle, e.EntryTime });
                 //e.HasMany<Bills>(s => s.Bills)
                 //    .WithOne(ss => ss.EntryVehicle)
                 //    .HasForeignKey(s => s.LisenseVehicle);

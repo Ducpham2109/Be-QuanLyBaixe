@@ -48,6 +48,13 @@ namespace DATN.Api.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
+        [HttpPut("changepass")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> ChangePassword([FromBody] UpdateAccountPassCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return result.Succeeded ? Ok(result) : BadRequest(result);
+        }
         [HttpGet("username")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<bool>> Get(string Username)

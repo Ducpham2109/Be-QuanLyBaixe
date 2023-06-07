@@ -76,5 +76,19 @@ namespace DATN.Infastructure.Repositories.BillRepository
 
 
         }
+        public async Task<int> GetRevenveByParkingCodeMonthDay( int parkingCode, int month, int day)
+
+        {
+            var totalCost = await _context.Set<Bills>()
+                              .Where(a => a.IsDeleted == false
+                               && a.TimingCreate.Month == month
+                              && a.ParkingCode == parkingCode
+                               && a.TimingCreate.Day == day)
+                              .Select(a => a.Cost)
+                              .SumAsync();
+            return totalCost;
+
+
+        }
     }
 }

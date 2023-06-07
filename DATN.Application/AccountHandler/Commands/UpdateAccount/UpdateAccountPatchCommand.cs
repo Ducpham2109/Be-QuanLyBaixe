@@ -12,10 +12,10 @@
 //namespace DATN.Application.AccountHandler.Commands.UpdateAccount
 //{
 //	public class UpdateAccountPatchCommand : IRequest<BResult>
-//	{
+//	{ 
 //		public UpdateAccountPatchCommand(int id, JsonPatchDocument requestPatch)
 //		{
-//			Id = id;
+//			Id = id; 
 //			RequestPatch = requestPatch;
 //		}
 //		public int Id { get; set; }

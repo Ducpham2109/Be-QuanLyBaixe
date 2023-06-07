@@ -14,7 +14,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
+using static DATN.Infastructure.Repositories.EmailReponsitory.EmailService;
 
 namespace DATN.Api
 {
@@ -42,6 +42,7 @@ namespace DATN.Api
             //services.AddScoped<IRequestHandler<CreateAccountCommand, BResult>, CreateAccountCommandHandler>();
             //services.AddScoped<CreateAccountCommandHandler>();
 
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
 
             services.AddCors();
             //services.AddMediatR(typeof(CreateAccountCommandHandler));

@@ -19,7 +19,7 @@ namespace DATN.Infastructure.Persistence.Configurations
                 e.HasKey(e => e.BillsId);
                 e.HasOne<EntryVehicles>(s => s.EntryVehicle)
                    .WithMany(ss => ss.Bills)
-                   .HasForeignKey(s => s.LisenseVehicle)
+                    .HasForeignKey(s => new { s.LisenseVehicle, s.EntryTime })
                    .OnDelete(DeleteBehavior.Cascade);
                 //   .HasConstraintName("FK1_Bills_Entry")
                    //.HasForeignKey(s => s.EntryTime)

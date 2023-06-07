@@ -131,6 +131,33 @@ namespace DATN.Infastructure.Repositories.EntryVehiclesRepository
             }
             return cost;
         }
-    
+        public class Res
+        {
+            public int VehiclesFalseCounter { get; set; }
+            public int VehiclesTrueCounter { get; set; }
+
+        }
+        public async Task<Res> GetTotalVehyclesByParkingCode(int parkingCode, int month)
+        {
+            List<int> totalVehycles = new List<int>();
+            var vehicleTrue = await _context.Set<EntryVehicles>()
+                 .Where(a => a.IsDeleted == true
+                              && a.ParkingCode == parkingCode
+                              && a.TimingCreate.Month== month
+                              )
+                 .CountAsync();
+            var vehicleFalse = await _context.Set<EntryVehicles>()
+              .Where(a => a.IsDeleted == false
+                           && a.ParkingCode == parkingCode
+                              && a.TimingCreate.Month == month
+
+                           )
+              .CountAsync();
+            Res m = new Res();
+            m.VehiclesFalseCounter = vehicleFalse;
+            m.VehiclesTrueCounter = vehicleTrue;
+            return m;
+        }
+
     }
 }

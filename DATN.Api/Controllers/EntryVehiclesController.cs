@@ -5,6 +5,7 @@ using DATN.Application.AccountHandler.Queries.GetAllAccountWithCondition;
 using DATN.Application.BillHandler.Queries.GetRevenveParkingCode;
 using DATN.Application.EntryVehiclesHandler.Commands.DeleteEntryVehicles;
 using DATN.Application.EntryVehiclesHandler.CreateEntryVehicles;
+using DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesParkingCodeWithCondition;
 using DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesWithCondition;
 
 using DATN.Application.EntryVehiclesHandler.Queries.GetEntryVehiclesPaging;
@@ -44,6 +45,13 @@ namespace DATN.Api.Controllers
             var result = await _mediator.Send(queries);
             return Ok(result);
         }
+        [HttpGet("/api/entryVehicles/parkingCode/month")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> GetAllEntryVehiclesParkingCodeMonthWithCondition([FromQuery] GetAllEntryVehiclesParkingCodeMonthWithConditionQuery queries)
+        {
+            var result = await _mediator.Send(queries);
+            return Ok(result);
+        }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -55,7 +63,6 @@ namespace DATN.Api.Controllers
     
         [HttpDelete("lisenseVehicle")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-  
         public async Task<ActionResult<bool>> Delete([FromQuery] DeleteEntryVehiclesCommand queries)
         {
             var result = await _mediator.Send(queries);

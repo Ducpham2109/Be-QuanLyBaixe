@@ -32,6 +32,8 @@ namespace DATN.Application.ParkingHandler.Queries
         public int MmPrice { get; set; }
         public int NnPrice { get; set; }
         public int NmPrice { get; set; }
+        public int Capacity { get; set; }
+
 
     }
 
@@ -60,6 +62,7 @@ namespace DATN.Application.ParkingHandler.Queries
                 result.MmPrice = Parking.MmPrice;
                 result.NnPrice = Parking.NnPrice;
                 result.NnPrice = Parking.NnPrice;
+                result.Capacity = Parking.Capacity;
                 results.Add(result);
             }
             var total = results.Count();

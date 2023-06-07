@@ -26,6 +26,8 @@ namespace DATN.Application.ParkingHandler.Queries.GetAccountPaging
         public int MmPrice { get; set; }
         public int NnPrice { get; set; }
         public int NmPrice { get; set; }
+        public int Capacity { get; set; }
+
 
     }
     public class GetParkingPagingQueryHandler : IRequestHandler<GetParkingPagingQuery, BResult<BPaging<GetParkingPagingResponse>>>
