@@ -5,7 +5,9 @@ using DATN.Application.AccountHandler.Commands.DeleteAccount;
 using DATN.Application.AccountHandler.Commands.UpdateAccount;
 using DATN.Application.AccountHandler.Queries.GetAccount;
 using DATN.Application.AccountHandler.Queries.GetAccountPaging;
+using DATN.Application.AccountHandler.Queries.GetAccountPagingWithConditionQuery;
 using DATN.Application.AccountHandler.Queries.GetAllAccountWithCondition;
+using DATN.Application.AccountHandler.Queries.GetNewAccountWithConditionQuery;
 using DATN.Application.BillsHandler.Commands.CreateBills;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -70,9 +72,23 @@ namespace DATN.Api.Controllers
             var result = await _mediator.Send(queries);
             return Ok(result);
         }
+        [HttpGet("role")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> Get([FromQuery] GetAccountPagingWithConditionQuery queries)
+        {
+            var result = await _mediator.Send(queries);
+            return Ok(result);
+        }
         [HttpGet("/api/account/search")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<bool>> GetAllAccountWithCondition([FromQuery] GetAllAccountWithConditionQuery queries)
+        {
+            var result = await _mediator.Send(queries);
+            return Ok(result);
+        }
+        [HttpGet("/api/accountUserCreate/month")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> GetNewAccount([FromQuery] GetNewAccountWithConditionQuery queries)
         {
             var result = await _mediator.Send(queries);
             return Ok(result);

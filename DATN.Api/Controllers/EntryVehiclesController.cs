@@ -5,7 +5,8 @@ using DATN.Application.AccountHandler.Queries.GetAllAccountWithCondition;
 using DATN.Application.BillHandler.Queries.GetRevenveParkingCode;
 using DATN.Application.EntryVehiclesHandler.Commands.DeleteEntryVehicles;
 using DATN.Application.EntryVehiclesHandler.CreateEntryVehicles;
-using DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesParkingCodeWithCondition;
+using DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesMonthWithConditionQuery;
+using DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesParkingCodeMonthWithCondition;
 using DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesWithCondition;
 
 using DATN.Application.EntryVehiclesHandler.Queries.GetEntryVehiclesPaging;
@@ -48,6 +49,13 @@ namespace DATN.Api.Controllers
         [HttpGet("/api/entryVehicles/parkingCode/month")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<bool>> GetAllEntryVehiclesParkingCodeMonthWithCondition([FromQuery] GetAllEntryVehiclesParkingCodeMonthWithConditionQuery queries)
+        {
+            var result = await _mediator.Send(queries);
+            return Ok(result);
+        }
+        [HttpGet("/api/entryVehicles/month")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> GetAllEntryVehiclesMonthWithCondition([FromQuery] GetAllEntryVehiclesMonthWithConditionQuery queries)
         {
             var result = await _mediator.Send(queries);
             return Ok(result);

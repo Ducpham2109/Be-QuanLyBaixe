@@ -3,6 +3,7 @@ using DATN.Application.AccountHandler.Commands.CreateAccount;
 using DATN.Application.AccountHandler.Queries.GetAccountPaging;
 using DATN.Application.BillsHandler.Commands.CreateBills;
 using DATN.Application.BillsHandler.Commands.Queries.GetBillPaging;
+using DATN.Application.BillsHandler.Commands.Queries.GetBillPagingWithConditionQuery;
 using DATN.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace DATN.Application.Mapper
         {
             CreateMap<Bills, CreateBillCommand>().ReverseMap();
             CreateMap<Bills, GetBillPagingResponse>().ReverseMap();
-
+            CreateMap<Bills, GetBillPagingWithConditionQueryResponse>().ReverseMap();
         }
     }
 }

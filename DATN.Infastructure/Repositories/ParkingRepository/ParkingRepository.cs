@@ -59,6 +59,20 @@ namespace DATN.Infastructure.Repositories.ParkingRepository
         {
             return await _context.Set<Parkings>().Where(a => a.IsDeleted == false).Skip(skip).Take(pageSize).ToListAsync();
         }
+        public async Task<IReadOnlyList<Parkings>> BGetPagingByParkingCodeAsync(int skip, int pageSize, int pakingCode)
+        {
+            var entity = await _context.Set<Parkings>().Where(a => a.IsDeleted == false )
+                .Skip(skip)
+                .Take(pageSize)
+                .ToListAsync();
+            
+            return entity;
+        }
+        //public async Task<IReadOnlyList<Parkings>> BGetPagingByParkingCodeAsync(int skip, int pageSize, int parkingCode)
+        //{
+        //    var entity = await _context.Set<Parkings>().Where(a=>a.ParkingCode==parkingCode).Skip(skip).Take(pageSize).ToListAsync();
+        //    return entity;
+        //}
         public async Task<IReadOnlyList<Parkings>> BGetAsync(Func<Parkings, bool> predicate)
         {
             var listExist = await _context.Set<Parkings>().Where(a => a.IsDeleted == false).ToListAsync();
@@ -78,6 +92,22 @@ namespace DATN.Infastructure.Repositories.ParkingRepository
             await _context.SaveChangesAsync();
             return entity;
         }
+        public async Task<int> GetCapacitybyParkingCode(int parkingCode)
+        {
+            var capacity = await _context.Set<Parkings>()
+                              .Where(a => a.IsDeleted == false
+                              && a.ParkingCode == parkingCode)
+                              .Select(a => a.Capacity)
+                              .SumAsync();
+            var vehicleFalse = await _context.Set<EntryVehicles>()
+           .Where(a => a.IsDeleted == false
+                        && a.ParkingCode == parkingCode
+                        )
+                        .CountAsync();
+            var Space = capacity - vehicleFalse;
+            return Space;
+        }
+
     }
 
 

@@ -43,6 +43,15 @@ namespace DATN.Infastructure.Repositories.ManagementRepository
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
-
+        public async Task<Managements> CheckManagement(string userName)
+        {
+            var entity = await _context.Set<Managements>().FirstOrDefaultAsync(t => t.Username.Equals(userName));
+            _context.Entry(entity).State = EntityState.Detached;
+            if (entity?.IsDeleted == true)
+            {
+                return null;
+            }
+            return entity;
+        }
     }
 }

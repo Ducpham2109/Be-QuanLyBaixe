@@ -19,10 +19,12 @@ namespace DATN.Infastructure.Repositories.AccountRepository
 
         Task DeleteAccountByUsername(string Username);
         Task<Accounts> GetAccountByUsername(string Username);
-        Task<IReadOnlyList<Accounts>> BGetPagingAsync(int skip, int pageSize);
+        Task<IReadOnlyList<AccountsMa>> BGetPagingAsync(int skip, int pageSize);
+        Task<IReadOnlyList<Accounts>> BGetPagingByRoleAsync(int skip, int pageSize, int role);
+
         Task<int> BGetTotalAsync();
         Task<List<Accounts>> GetAllAccountWithCondition(string searchTerm);
         Task<string> ChangePasswordAsync(string email);
-
+        Task<int> GetNewAccountWithByMonth(int month);
     }
 }

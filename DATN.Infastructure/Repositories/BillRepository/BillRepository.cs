@@ -44,6 +44,11 @@ namespace DATN.Infastructure.Repositories.BillRepository
         {
             return await _context.Set<Bills>().Where(a => a.IsDeleted == false).Skip(skip).Take(pageSize).ToListAsync();
         }
+        public async Task<IReadOnlyList<Bills>> BGetPagingByParkingCodeAsync(int skip, int pageSize, int parkingCode)
+        {
+            return await _context.Set<Bills>().Where(a => a.IsDeleted == false).Skip(skip).Take(pageSize).ToListAsync();
+        }
+
         public async Task<IReadOnlyList<Bills>> BGetAsync(Func<Bills, bool> predicate)
         {
             var listExist = await _context.Set<Bills>().Where(a => a.IsDeleted == false).ToListAsync();

@@ -7,6 +7,7 @@ using DATN.Application.ParkingHandler.Commam.CreateParking;
 using DATN.Application.ParkingHandler.Commam.UpdateParking;
 using DATN.Application.ParkingHandler.Queries;
 using DATN.Application.ParkingHandler.Queries.GetAccountPaging;
+using DATN.Application.ParkingHandler.Queries.GetParkingPagingWithConditionQuery;
 using DATN.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,9 @@ namespace DATN.Application.Mapper
             CreateMap<Parkings, CreateParkingCommand>().ReverseMap();
             CreateMap<Parkings, GetParkingResponse>().ReverseMap();
             CreateMap<Parkings, GetParkingPagingResponse>().ReverseMap();
-            CreateMap<Parkings, UpdateParkingCommand>().ReverseMap();
+            CreateMap<Parkings, GetParkingPagingWithConditionQueryResponse>().ReverseMap();
+
+            CreateMap<Parkings, UpdateParkingCommand>().ReverseMap(); 
 
         }
     }

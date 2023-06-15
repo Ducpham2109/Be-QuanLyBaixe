@@ -1,5 +1,4 @@
-﻿using DATN.Infastructure.Repositories.BillRepository;
-using DATN.Infastructure.Repositories.EntryVehiclesRepository;
+﻿using DATN.Infastructure.Repositories.EntryVehiclesRepository;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,13 +7,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesParkingCodeWithCondition
+namespace DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesMonthWithConditionQuery
 {
-   
     public class GetAllEntryVehiclesParkingCodeMonthWithConditionQuery : IRequest<GetAllEntryVehiclesParkingCodeMonthWithConditionQueryResponse>
     {
-        public int ParkingCode { get; set; }
         public int Month { get; set; }
+        public int ParkingCode { get; set; }
 
         public GetAllEntryVehiclesParkingCodeMonthWithConditionQuery()
         {
@@ -45,7 +43,7 @@ namespace DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesParki
             GetAllEntryVehiclesParkingCodeMonthWithConditionQueryResponse m = new GetAllEntryVehiclesParkingCodeMonthWithConditionQueryResponse();
             m.TotalVehiclesTrue = vehicles.VehiclesTrueCounter;
             m.TotalVehiclesFalse = vehicles.VehiclesFalseCounter;
-            return m ;
+            return m;
 
         }
     }

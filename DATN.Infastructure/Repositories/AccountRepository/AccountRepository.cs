@@ -57,9 +57,59 @@ namespace DATN.Infastructure.Repositories.AccountRepository
             }
             return entity;
         }
-        public async Task<IReadOnlyList<Accounts>> BGetPagingAsync(int skip, int pageSize)
+        public class AccountsMa
         {
-            return await _context.Set<Accounts>().Where(a => a.IsDeleted == false).Skip(skip).Take(pageSize).ToListAsync();
+            public int Role { get; set; }
+            public int PhoneNumber { get; set; }
+            public string Email { get; set; }
+            public string UserName { get; set; }
+            public string Password { get; set; }
+            public bool IsDeleted { get; set; }
+            public int? ParkingCode { get; set; }
+        }
+        public async Task<IReadOnlyList<AccountsMa>> BGetPagingAsync(int skip, int pageSize)
+        {
+            var query = from account in _context.Accounts
+                        join management in _context.Managements on account.Username equals management.Username into joinedData
+                        from management in joinedData.DefaultIfEmpty()
+                        where !account.IsDeleted
+                        orderby account.Role ascending
+                        select new
+                        {
+                        UserName = account.Username,
+                        Password = account.Password,
+                        Role = account.Role,
+                        PhoneNumber = account.PhoneNumber,
+                        Email = account.Email,
+                        ParkingCode = management.ParkingCode != null ? management.ParkingCode:null,
+
+
+                        };
+
+            var result = query.ToList();
+           List<AccountsMa> entitiesList = new List<AccountsMa>();
+
+    foreach (var item in result)
+    {
+        var entity = new AccountsMa
+        {
+            Role = item.Role,
+            PhoneNumber = item.PhoneNumber,
+            Email = item.Email,
+            UserName = item.UserName,
+            Password = item.Password,
+            ParkingCode = item.ParkingCode
+        };
+
+        entitiesList.Add(entity);
+    }
+
+    return entitiesList;
+        }
+        public async Task<IReadOnlyList<Accounts>> BGetPagingByRoleAsync(int skip, int pageSize, int role)
+        {
+            var entities =  await _context.Set<Accounts>().Where(a => a.IsDeleted == false).Skip(skip).Take(pageSize).ToListAsync();
+        return entities;
         }
         public async Task<IReadOnlyList<Accounts>> BGetAsync(Func<Accounts, bool> predicate)
         {
@@ -123,6 +173,15 @@ namespace DATN.Infastructure.Repositories.AccountRepository
             }
 
             return password;
+        }
+        public async Task<int> GetNewAccountWithByMonth(int month)
+        {
+            var total = await _context.Set<Accounts>()
+                .Where(a=>a.IsDeleted == false
+                &&a.TimingCreate.Month==month
+                &&a.Role==2) 
+                .CountAsync();
+            return total;
         }
     }
 }

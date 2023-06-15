@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DATN.Infastructure.Repositories.AccountRepository;
+using DATN.Infastructure.Repositories.ManagementRepository;
 
 namespace DATN.Application.AuthHandler.Commands.TokenCommand
 {
@@ -19,7 +20,9 @@ namespace DATN.Application.AuthHandler.Commands.TokenCommand
     {
         public string AccessToken { get; set; } = default!;
        
+        public int? ParkingCode { get; set; }
         public int Role { get; set; } = default!;
+
         
 
     }
@@ -32,11 +35,13 @@ namespace DATN.Application.AuthHandler.Commands.TokenCommand
     {
         private readonly IConfiguration _config;
         private readonly IAccountRepository _accountRepo;
+        private readonly IManagementRepository _management;
 
-        public TokenCommandHandler(IConfiguration config, IAccountRepository accountRepo)
+        public TokenCommandHandler(IConfiguration config, IAccountRepository accountRepo, IManagementRepository managent)
         {
             _config = config;
             _accountRepo = accountRepo;
+            _management = managent;
         }
 
         public async Task<TokenCommandResponse> Handle(TokenCommand request, CancellationToken cancellationToken)
@@ -48,6 +53,8 @@ namespace DATN.Application.AuthHandler.Commands.TokenCommand
             {
                 throw new Exception();
             }
+        
+
 
             //var roles = await _userManager.GetRolesAsync(user);
 
@@ -71,13 +78,23 @@ namespace DATN.Application.AuthHandler.Commands.TokenCommand
                 signingCredentials: credentials);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
-            
+            if (account.Role == 1)
+            {
+                var management = await _management.CheckManagement(request.Username);
+                TokenCommandResponse response = new TokenCommandResponse();
+                response.ParkingCode = management.ParkingCode;
+                response.Role = account.Role;
+                response.AccessToken = jwt;
+                return response;
+            }
+
             return new TokenCommandResponse
             {
                 AccessToken = jwt,
-               
+
                 Role = account.Role,
-              
+
+                ParkingCode = 0
             };
         }
     }

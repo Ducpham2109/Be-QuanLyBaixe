@@ -14,6 +14,7 @@ namespace DATN.Infastructure.Repositories.ManagementRepository
         Task<Managements> AddManagementAsync(Managements entity);
         Task<Managements> GetManagementByUsername(string Username);
         Task DeleteManagementByUsername(string Username);
+        Task <Managements> CheckManagement(string Username);
 
     }
 }

@@ -8,6 +8,8 @@ using DATN.Application.ParkingHandler.Commam.DeleteParking;
 using DATN.Application.ParkingHandler.Commam.UpdateParking;
 using DATN.Application.ParkingHandler.Queries;
 using DATN.Application.ParkingHandler.Queries.GetAccountPaging;
+using DATN.Application.ParkingHandler.Queries.GetCapacityParkingCodeWithCondition;
+using DATN.Application.ParkingHandler.Queries.GetParkingPagingWithConditionQuery;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace DATN.Api.Controllers
 {
-    [Route("api/Parking")]
+    [Route("api/parking")]
     [ApiController]
     public class ParkingController : ControllerBase
     {
@@ -62,6 +64,13 @@ namespace DATN.Api.Controllers
             var result = await _mediator.Send(queries);
             return Ok(result);
         }
+        [HttpGet("parkingCode")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> Get([FromQuery] GetParkingPagingWithConditionQuery queries)
+        {
+            var result = await _mediator.Send(queries);
+            return Ok(result);
+        }
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<bool>> Update([FromBody] UpdateParkingCommand command)
@@ -69,6 +78,14 @@ namespace DATN.Api.Controllers
             var result = await _mediator.Send(command);
             return result.Succeeded ? Ok(result) : BadRequest(result);
         }
+        [HttpGet("capacity/parkingCode")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> Get([FromQuery] GetCapacityParkingCodeWithCondition queries)
+        {
+            var result = await _mediator.Send(queries);
+            return Ok(result);
+        }
+
 
     }
 }

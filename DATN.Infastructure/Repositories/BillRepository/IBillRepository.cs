@@ -13,6 +13,8 @@ namespace DATN.Infastructure.Repositories.BillRepository
         Task<Bills> AddBillAsync(Bills entity);
         Task<List<Bills>> GetAllBillWithCondition(string searchTerm);
         Task<IReadOnlyList<Bills>> BGetPagingAsync(int skip, int pageSize);
+        Task<IReadOnlyList<Bills>> BGetPagingByParkingCodeAsync(int skip, int pageSize, int parkingCode);
+
         Task<int> BGetTotalAsync();
         Task<int> GetRevenveByMonth( int month);
         Task<int> GetRevenveByParkingCodeMonth(int month, int parkingCode);

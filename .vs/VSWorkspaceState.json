@@ -3,7 +3,12 @@
     "",
     "\\DATN.Api",
     "\\DATN.Api\\Controllers",
+    "\\DATN.Application",
+    "\\DATN.Application\\AuthHandler",
+    "\\DATN.Application\\AuthHandler\\Commands",
+    "\\DATN.Application\\AuthHandler\\Commands\\TokenCommand",
     "\\DATN.Infastructure",
+    "\\DATN.Infastructure\\Migrations",
     "\\DATN.Infastructure\\Repositories",
     "\\DATN.Infastructure\\Repositories\\AccountRepository"
   ],

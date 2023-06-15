@@ -5,6 +5,7 @@ using DATN.Application.BillHandler.Queries.GetRevenveParkingCode;
 using DATN.Application.BillsHandler.Commands.CreateBills;
 using DATN.Application.BillsHandler.Commands.Queries.GetAllBillWithCondition;
 using DATN.Application.BillsHandler.Commands.Queries.GetBillPaging;
+using DATN.Application.BillsHandler.Commands.Queries.GetBillPagingWithConditionQuery;
 using DATN.Application.BillsHandler.Commands.Queries.GetRevenve;
 using DATN.Application.BillsHandler.Commands.Queries.GetRevenveParkingCode;
 using MediatR;
@@ -35,6 +36,13 @@ namespace DATN.Api.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<bool>> Get([FromQuery] GetBillPagingQuery queries)
+        {
+            var result = await _mediator.Send(queries);
+            return Ok(result);
+        }
+        [HttpGet("parkingCode")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> Get([FromQuery] GetBillPagingWithConditionQuery queries)
         {
             var result = await _mediator.Send(queries);
             return Ok(result);

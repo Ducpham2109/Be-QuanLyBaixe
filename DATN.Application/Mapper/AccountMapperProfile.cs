@@ -3,6 +3,7 @@ using DATN.Application.AccountHandler.Commands.CreateAccount;
 using DATN.Application.AccountHandler.Commands.UpdateAccount;
 using DATN.Application.AccountHandler.Queries.GetAccount;
 using DATN.Application.AccountHandler.Queries.GetAccountPaging;
+using DATN.Application.AccountHandler.Queries.GetAccountPagingWithConditionQuery;
 //using DATN.Application.AccountHandler.Commands.UpdateAccount;
 //using DATN.Application.AccountHandler.Queries.GetAccount;
 //using DATN.Application.AccountHandler.Queries.GetAccountByImei;
@@ -22,6 +23,8 @@ namespace DATN.Application.Mapper
             CreateMap<Accounts, UpdateAccountCommand>().ReverseMap();
             CreateMap<Accounts, GetAccountResponse>().ReverseMap();
             CreateMap<Accounts, GetAccountPagingResponse>().ReverseMap();
+            CreateMap<Accounts, GetAccountPagingWithConditionQueryResponse>().ReverseMap();
+
             //CreateMap<Accounts, GetAccountByImeiResponse>().ReverseMap();
             //CreateMap<Accounts, GetAccountMultipleImeiResponse>().ReverseMap();
             //CreateMap<Accounts, GetAccountMultipleRoleResponse>().ReverseMap();
