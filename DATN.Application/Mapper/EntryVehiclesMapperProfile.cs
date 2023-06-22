@@ -22,8 +22,8 @@ namespace DATN.Application.Mapper
             CreateMap<EntryVehicles, CreateEntryVehiclesCommand>().ReverseMap();
             //CreateMap<Accounts, UpdateAccountPassCommand>().ReverseMap();
             //CreateMap<Accounts, UpdateAccountCommand>().ReverseMap();
-
             CreateMap<EntryVehicles, GetEntryVehiclesPagingResponse>().ReverseMap();
+
             ////CreateMap<Accounts, GetAccountByImeiResponse>().ReverseMap();
             //CreateMap<Accounts, GetAccountMultipleImeiResponse>().ReverseMap();
             //CreateMap<Accounts, GetAccountMultipleRoleResponse>().ReverseMap();

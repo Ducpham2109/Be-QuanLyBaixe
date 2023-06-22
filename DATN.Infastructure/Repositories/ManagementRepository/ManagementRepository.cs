@@ -16,15 +16,31 @@ namespace DATN.Infastructure.Repositories.ManagementRepository
         {
 
         }
-      
-
-        public async Task<Managements> AddManagementAsync(Managements entity)
+        public async Task<int> GetRoleByUserName(string userName)
         {
-            entity.TimingCreate = System.DateTime.Now;
-            entity.IsDeleted = false;
-            await _context.Set<Managements>().AddAsync(entity); //thêm vào rồi
-            await _context.SaveChangesAsync(); // lưu vao database
-            return entity;
+            var role = await _context.Set<Accounts>()
+              .Where(a => a.IsDeleted == false
+              && a.Username == userName)
+              .Select(a => a.Role)
+              .FirstOrDefaultAsync();
+            return role;
+
+        }
+        public async Task<bool> CheckUsernameExists(string username)
+        {
+            return await _context.Set<Managements>()
+                .AnyAsync(a => a.Username == username && !a.IsDeleted);
+        }
+
+        public async Task<Managements> AddManagementAsync(Managements entity, string username)
+        {
+                entity.TimingCreate = System.DateTime.Now;
+                entity.IsDeleted = false;
+                await _context.Set<Managements>().AddAsync(entity); //thêm vào rồi
+                await _context.SaveChangesAsync(); // lưu vao database
+                return entity;
+         
+
         }
         public async Task<Managements> GetManagementByUsername(string Username)
         {

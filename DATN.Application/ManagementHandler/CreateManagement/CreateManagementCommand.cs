@@ -37,9 +37,27 @@ namespace DATN.Application.ManagementHandler.CreateManagement
         public async Task<BResult> Handle(CreateManagementCommand request, CancellationToken cancellationToken)
         {
             var entity = ManagementMapper.Mapper.Map<Managements>(request);
-            var result = await _MaRepository.AddManagementAsync(entity);
+            var role = await _MaRepository.GetRoleByUserName(request.Username);
+            var usernameExists = await _MaRepository.CheckUsernameExists(request.Username);
 
-            return BResult.Success();
+          
+            if (role != 1)
+            {
+                return BResult.Failure("Chọn tài khoản có quyền Admin ");
+
+            }
+            else
+            {
+                if (usernameExists)
+                {
+                    return BResult.Failure("Admin này đã được thêm quyền");
+                }
+                else
+                {
+                    var result = await _MaRepository.AddManagementAsync(entity, request.Username);
+                    return BResult.Success();
+                }
+            }
         }
     }
 }

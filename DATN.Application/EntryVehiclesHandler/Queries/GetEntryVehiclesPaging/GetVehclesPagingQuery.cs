@@ -43,7 +43,7 @@ namespace DATN.Application.EntryVehiclesHandler.Queries.GetEntryVehiclesPaging
         public async Task<BResult<BPaging<GetEntryVehiclesPagingResponse>>> Handle(GetEntryVehiclesPagingQuery request, CancellationToken cancellationToken)
         {
             var entities = await _accRepository.BGetPagingAsync(request.Skip, request.PageSize);
-            var items = EntryVehiclesMapper.Mapper.Map<List<GetEntryVehiclesPagingResponse>>(entities);
+            var items = BillsMapper.Mapper.Map<List<GetEntryVehiclesPagingResponse>>(entities);
             var total = await _accRepository.BGetTotalAsync();
 
             var result = new BPaging<GetEntryVehiclesPagingResponse>()

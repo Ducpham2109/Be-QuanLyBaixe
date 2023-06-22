@@ -26,5 +26,7 @@ namespace DATN.Infastructure.Repositories.AccountRepository
         Task<List<Accounts>> GetAllAccountWithCondition(string searchTerm);
         Task<string> ChangePasswordAsync(string email);
         Task<int> GetNewAccountWithByMonth(int month);
+        Task<bool> CheckUsernameExists(string username);
+
     }
 }

@@ -48,7 +48,7 @@ namespace DATN.Application.BillsHandler.Commands.Queries.GetBillPaging
         public async Task<BResult<BPaging<GetBillPagingResponse>>> Handle(GetBillPagingQuery request, CancellationToken cancellationToken)
         {
             var entities = await _accRepository.BGetPagingAsync(request.Skip, request.PageSize);
-            var items = BillMapper.Mapper.Map<List<GetBillPagingResponse>>(entities);
+            var items = BillsMapper.Mapper.Map<List<GetBillPagingResponse>>(entities);
             var total = await _accRepository.BGetTotalAsync();
 
             var result = new BPaging<GetBillPagingResponse>()

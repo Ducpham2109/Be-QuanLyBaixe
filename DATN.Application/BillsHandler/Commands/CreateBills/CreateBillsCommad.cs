@@ -43,7 +43,7 @@ namespace DATN.Application.BillsHandler.Commands.CreateBills
 
         public async Task<BResult> Handle(CreateBillCommand request, CancellationToken cancellationToken)
         {
-            var entity = BillMapper.Mapper.Map<Bills>(request);
+            var entity = BillsMapper.Mapper.Map<Bills>(request);
             var result = await _accRepository.AddBillAsync(entity);
 
             return BResult.Success();

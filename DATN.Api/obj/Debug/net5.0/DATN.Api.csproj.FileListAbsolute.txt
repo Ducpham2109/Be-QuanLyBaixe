@@ -63,7 +63,6 @@ D:\CCC\css\DATN.Api\DATN.Api\bin\Debug\net5.0\DATN.Infastructure.dll
 D:\CCC\css\DATN.Api\DATN.Api\bin\Debug\net5.0\DATN.Application.pdb
 D:\CCC\css\DATN.Api\DATN.Api\bin\Debug\net5.0\DATN.Infastructure.pdb
 D:\CCC\css\DATN.Api\DATN.Api\bin\Debug\net5.0\DATN.Core.pdb
-D:\CCC\css\DATN.Api\DATN.Api\obj\Debug\net5.0\DATN.Api.MvcApplicationPartsAssemblyInfo.cs
 D:\CCC\css\DATN.Api\DATN.Api\obj\Debug\net5.0\scopedcss\bundle\DATN.Api.styles.css
 D:\CCC\css\DATN.Api\DATN.Api\obj\Debug\net5.0\staticwebassets\DATN.Api.StaticWebAssets.Manifest.cache
 D:\CCC\css\DATN.Api\DATN.Api\obj\Debug\net5.0\DATN.Api.RazorTargetAssemblyInfo.cache
@@ -88,3 +87,4 @@ D:\CCC\css\DATN.Api\DATN.Api\obj\Debug\net5.0\staticwebassets\msbuild.DATN.Api.M
 D:\CCC\css\DATN.Api\DATN.Api\obj\Debug\net5.0\staticwebassets\msbuild.build.DATN.Api.props
 D:\CCC\css\DATN.Api\DATN.Api\obj\Debug\net5.0\staticwebassets\msbuild.buildMultiTargeting.DATN.Api.props
 D:\CCC\css\DATN.Api\DATN.Api\obj\Debug\net5.0\staticwebassets\msbuild.buildTransitive.DATN.Api.props
+D:\CCC\css\DATN.Api\DATN.Api\obj\Debug\net5.0\DATN.Api.MvcApplicationPartsAssemblyInfo.cs

@@ -40,9 +40,17 @@ namespace DATN.Application.AccountHandler.Commands.CreateAccount
         public async Task<BResult> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
         {
             var entity = AccountMapper.Mapper.Map<Accounts>(request);
-            var result = await _accRepository.AddAccountAsync(entity);
+            var usernameExists = await _accRepository.CheckUsernameExists(request.Username);
 
-            return BResult.Success();
+            if (usernameExists)
+            {
+                return BResult.Failure("Tài khoản đã tồn tại");
+            }
+            else
+            {
+                var result = await _accRepository.AddAccountAsync(entity);
+                return BResult.Success();
+            }
         }
     }
 }

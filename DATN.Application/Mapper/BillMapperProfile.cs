@@ -20,6 +20,8 @@ namespace DATN.Application.Mapper
             CreateMap<Bills, CreateBillCommand>().ReverseMap();
             CreateMap<Bills, GetBillPagingResponse>().ReverseMap();
             CreateMap<Bills, GetBillPagingWithConditionQueryResponse>().ReverseMap();
+            CreateMap<Bills, GetVehiclesSentWithConditionQueryResponse>().ReverseMap();
+
         }
     }
 }

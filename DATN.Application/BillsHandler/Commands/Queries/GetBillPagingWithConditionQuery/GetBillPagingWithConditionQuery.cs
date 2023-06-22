@@ -48,7 +48,7 @@ namespace DATN.Application.BillsHandler.Commands.Queries.GetBillPagingWithCondit
         public async Task<BResult<BPaging<GetBillPagingWithConditionQueryResponse>>> Handle(GetBillPagingWithConditionQuery request, CancellationToken cancellationToken)
         {
             var entities = await _accRepository.BGetPagingByParkingCodeAsync(request.Skip, request.PageSize, request.parkingCode);
-            var items = BillMapper.Mapper.Map<List<GetBillPagingWithConditionQueryResponse>>(entities);
+            var items = BillsMapper.Mapper.Map<List<GetBillPagingWithConditionQueryResponse>>(entities);
             var total = await _accRepository.BGetTotalAsync();
             var filteredItems = items.Where(item => item.ParkingCode == request.parkingCode).ToList();
 

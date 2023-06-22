@@ -38,7 +38,7 @@ namespace DATN.Application.EntryVehiclesHandler.CreateEntryVehicles
 
         public async Task<BResult> Handle(CreateEntryVehiclesCommand request, CancellationToken cancellationToken)
         {
-            var entity = EntryVehiclesMapper.Mapper.Map<EntryVehicles>(request);
+            var entity = BillsMapper.Mapper.Map<EntryVehicles>(request);
             var result = await _accRepository.AddEntryVehiclesAsync(entity);
 
             return BResult.Success();

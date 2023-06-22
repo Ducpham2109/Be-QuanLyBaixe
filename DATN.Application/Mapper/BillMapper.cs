@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DATN.Application.Mapper
 {
-    public class BillMapper
+    public class BillsMapper
     {
         private static readonly Lazy<IMapper> Lazy = new Lazy<IMapper>(() =>
         {

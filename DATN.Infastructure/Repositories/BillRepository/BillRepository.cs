@@ -92,8 +92,14 @@ namespace DATN.Infastructure.Repositories.BillRepository
                               .Select(a => a.Cost)
                               .SumAsync();
             return totalCost;
-
-
+        }
+        public async Task<IReadOnlyList<Bills>> GetVehiclesSentByUserName(string UserName)
+        {
+            var entities = await _context.Set<Bills>()
+                .Where(a => a.IsDeleted == false
+                && a.Username == UserName)
+                .ToListAsync();
+            return entities;
         }
     }
 }

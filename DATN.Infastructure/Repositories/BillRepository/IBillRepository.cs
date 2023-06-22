@@ -20,6 +20,7 @@ namespace DATN.Infastructure.Repositories.BillRepository
         Task<int> GetRevenveByParkingCodeMonth(int month, int parkingCode);
         Task<int> GetRevenveByParkingCodeMonthDay(int parkingCode, int month, int day);
 
+        Task<IReadOnlyList<Bills>> GetVehiclesSentByUserName(string UserName);
 
     }
 }

@@ -11,10 +11,11 @@ namespace DATN.Infastructure.Repositories.ManagementRepository
     public interface IManagementRepository : IRepository<Managements>
     {
        
-        Task<Managements> AddManagementAsync(Managements entity);
+        Task<Managements> AddManagementAsync(Managements entity, string username);
         Task<Managements> GetManagementByUsername(string Username);
         Task DeleteManagementByUsername(string Username);
         Task <Managements> CheckManagement(string Username);
-
+        Task <int> GetRoleByUserName(string Username);
+        Task<bool> CheckUsernameExists(string username);
     }
 }

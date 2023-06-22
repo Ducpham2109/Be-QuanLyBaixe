@@ -183,6 +183,11 @@ namespace DATN.Infastructure.Repositories.AccountRepository
                 .CountAsync();
             return total;
         }
+        public async Task<bool> CheckUsernameExists(string username)
+        {
+            return await _context.Set<Accounts>()
+                .AnyAsync(a => a.Username == username && !a.IsDeleted);
+        }
     }
 }
 
