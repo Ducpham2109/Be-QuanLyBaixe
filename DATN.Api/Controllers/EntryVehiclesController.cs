@@ -10,7 +10,7 @@ using DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesParkingCo
 using DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesWithCondition;
 
 using DATN.Application.EntryVehiclesHandler.Queries.GetEntryVehiclesPaging;
-
+using DATN.Application.EntryVehiclesHandler.Queries.GetVehicleWithConditionQuery;
 using DATN.Application.ParkingHandler.Commam.DeleteParking;
 using DATN.Application.ParkingHandler.Queries;
 using MediatR;
@@ -68,7 +68,14 @@ namespace DATN.Api.Controllers
             var result = await _mediator.Send(queries);
             return Ok(result);
         }
-    
+        [HttpGet("/api/entryVehicles/IDCard")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> Get([FromQuery] GetVehicle queries)
+        {
+            var result = await _mediator.Send(queries);
+            return Ok(result);
+        }
+
         [HttpDelete("lisenseVehicle")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<bool>> Delete([FromQuery] DeleteEntryVehiclesCommand queries)

@@ -21,8 +21,8 @@ namespace DATN.Infastructure.Persistence.Configurations
                 //    .WithOne(ss => ss.EntryVehicle)
                 //    .HasForeignKey(s => s.LisenseVehicle);
                 e.HasOne<Accounts>(s => s.Account)
-                   .WithMany(ss => ss.EntryVehicles)
-                   .HasForeignKey(s => s.Username);
+                   .WithMany(ss => ss.EntryVehicles);
+                   
                 e.HasOne<Parkings>(s => s.Parking)
                   .WithMany(ss => ss.EntryVehicles)
                   .HasForeignKey(s => s.ParkingCode);

@@ -17,7 +17,11 @@ namespace DATN.Infastructure.Repositories.EntryVehiclesRepository
         Task<int> BGetTotalAsync();
         Task<int> DeleteEntryVehiclesByLisenseVehicle(string lisenseVehicle, string vehicleyType, int parkingCode);
         Task<Res> GetTotalVehyclesByParkingCode(int parkingCode, int month);
-        Task<Res> GetTotalVehyclesByMonth( int month);
+        Task<EntryVehicles> GetVehicleByIDCard(int idCard);
+
+        Task<Res> GetTotalVehyclesByMonth( int month); 
+        Task<bool> CheckLisenseExists(string lisenseVehicle);
+
 
     }
 }

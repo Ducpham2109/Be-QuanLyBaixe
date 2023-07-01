@@ -30,6 +30,8 @@ namespace DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesWithC
         public string LisenseVehicle { get; set; }
         public string EntryTime { get; set; }
         public int ParkingCode { get; set; }
+        public int IDCard { get; set; }
+
         public string VehicleyType { get; set; }
         public string Image { get; set; }
 

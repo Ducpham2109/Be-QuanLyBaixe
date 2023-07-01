@@ -48,17 +48,20 @@ namespace DATN.Application.AccountHandler.Queries.GetAccountPaging
 
             foreach (var item in entities)
             {
-                var entity = new GetAccountPagingResponse
+                if (item.Role == 1)
                 {
-                    Email = item.Email,
-                    PhoneNumber = item.PhoneNumber,
-                    UserName = item.UserName,
-                    Password = item.Password,
-                    ParkingCode= item.ParkingCode,
-                    Role = item.Role,
-                };
+                    var entity = new GetAccountPagingResponse
+                    {
+                        Email = item.Email,
+                        PhoneNumber = item.PhoneNumber,
+                        UserName = item.UserName,
+                        Password = item.Password,
+                        ParkingCode = item.ParkingCode,
+                        Role = item.Role,
+                    };
 
-                entitiesList.Add(entity);
+                    entitiesList.Add(entity);
+                }
             }
 
             return entitiesList;

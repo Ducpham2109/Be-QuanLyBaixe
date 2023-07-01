@@ -19,7 +19,7 @@ namespace DATN.Application.EntryVehiclesHandler.CreateEntryVehicles
         public string LisenseVehicle { get; set; }
         public string EntryTime { get; set; }
         public string VehicleyType { get; set; }
-
+        public int IDCard { get; set; }
         public int ParkingCode { get; set; }
         public string Image { get; set; }
         //public DateTime TimingCreate { get; set; }
@@ -38,10 +38,19 @@ namespace DATN.Application.EntryVehiclesHandler.CreateEntryVehicles
 
         public async Task<BResult> Handle(CreateEntryVehiclesCommand request, CancellationToken cancellationToken)
         {
-            var entity = BillsMapper.Mapper.Map<EntryVehicles>(request);
-            var result = await _accRepository.AddEntryVehiclesAsync(entity);
+            var entity = EntryVehiclesMapper.Mapper.Map<EntryVehicles>(request);
+            var usernameExists = await _accRepository.CheckLisenseExists(request.LisenseVehicle);
 
-            return BResult.Success();
+            if (usernameExists)
+            {
+                return BResult.Failure("Xe đã tồn tại trong bãi");
+            }
+            else
+            {
+                var result = await _accRepository.AddEntryVehiclesAsync(entity);
+
+                return BResult.Success();
+            }
         }
     }
 }

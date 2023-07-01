@@ -110,6 +110,12 @@ namespace DATN.Infastructure.Migrations
                     b.Property<string>("EntryTime")
                         .HasColumnType("text");
 
+                    b.Property<string>("AccountUsername")
+                        .HasColumnType("text");
+
+                    b.Property<int>("IDCard")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Image")
                         .HasColumnType("text");
 
@@ -136,9 +142,9 @@ namespace DATN.Infastructure.Migrations
 
                     b.HasKey("LisenseVehicle", "EntryTime");
 
-                    b.HasIndex("ParkingCode");
+                    b.HasIndex("AccountUsername");
 
-                    b.HasIndex("Username");
+                    b.HasIndex("ParkingCode");
 
                     b.ToTable("EntryVehicles");
                 });
@@ -151,7 +157,7 @@ namespace DATN.Infastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("ParkingCode")
+                    b.Property<int?>("ParkingCode")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("TimingCreate")
@@ -235,15 +241,15 @@ namespace DATN.Infastructure.Migrations
 
             modelBuilder.Entity("DATN.Core.Entities.EntryVehicles", b =>
                 {
+                    b.HasOne("DATN.Core.Entities.Accounts", "Account")
+                        .WithMany("EntryVehicles")
+                        .HasForeignKey("AccountUsername");
+
                     b.HasOne("DATN.Core.Entities.Parkings", "Parking")
                         .WithMany("EntryVehicles")
                         .HasForeignKey("ParkingCode")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("DATN.Core.Entities.Accounts", "Account")
-                        .WithMany("EntryVehicles")
-                        .HasForeignKey("Username");
 
                     b.Navigation("Account");
 
@@ -254,9 +260,7 @@ namespace DATN.Infastructure.Migrations
                 {
                     b.HasOne("DATN.Core.Entities.Parkings", "Parking")
                         .WithMany("Managements")
-                        .HasForeignKey("ParkingCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParkingCode");
 
                     b.HasOne("DATN.Core.Entities.Accounts", "Account")
                         .WithOne("Management")

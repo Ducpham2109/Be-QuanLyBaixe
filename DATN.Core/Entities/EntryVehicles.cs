@@ -10,6 +10,7 @@ namespace DATN.Core.Entities
     public class EntryVehicles : Base
     {
         public string Username { get; set; }
+        public int IDCard { get; set; }
         public string LisenseVehicle { get; set; }
         public string VehicleyType { get; set; }
         public string EntryTime { get; set; }

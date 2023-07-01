@@ -48,7 +48,8 @@ namespace DATN.Infastructure.Repositories.EntryVehiclesRepository
         }
         public async Task<IReadOnlyList<EntryVehicles>> BGetPagingAsync(int skip, int pageSize)
         {
-            return await _context.Set<EntryVehicles>().Where(a => a.IsDeleted == false).Skip(skip).Take(pageSize).ToListAsync();
+            var entities =  await _context.Set<EntryVehicles>().Where(a => a.IsDeleted == false).Skip(skip).Take(pageSize).ToListAsync();
+            return entities;
         }
       
         public async Task<int> DeleteEntryVehiclesByLisenseVehicle(string lisenseVehicle, string vehicleyType, int parkingCode)
@@ -158,6 +159,11 @@ namespace DATN.Infastructure.Repositories.EntryVehiclesRepository
             m.VehiclesTrueCounter = vehicleTrue;
             return m;
         }
+        public async Task<bool> CheckLisenseExists(string lisenseVehicle)
+        {
+            return await _context.Set<EntryVehicles>()
+               .AnyAsync(a => a.LisenseVehicle == lisenseVehicle && !a.IsDeleted);
+        }
         public async Task<Res> GetTotalVehyclesByMonth(int month)
         {
             List<int> totalVehycles = new List<int>();
@@ -177,6 +183,12 @@ namespace DATN.Infastructure.Repositories.EntryVehiclesRepository
             m.VehiclesTrueCounter = vehicleTrue;
             return m;
         }
+        public async Task<EntryVehicles> GetVehicleByIDCard(int idCard)
+        {
+            var entity = await _context.Set<EntryVehicles>().Where(a => a.IsDeleted == false
+               &&a.IDCard==idCard).FirstOrDefaultAsync();
+            return entity;
 
+        }
     }
 }
