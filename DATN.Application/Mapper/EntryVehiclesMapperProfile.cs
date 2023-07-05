@@ -6,6 +6,7 @@ using DATN.Application.AccountHandler.Queries.GetAccountPaging;
 using DATN.Application.EntryVehiclesHandler.CreateEntryVehicles;
 
 using DATN.Application.EntryVehiclesHandler.Queries.GetEntryVehiclesPaging;
+using DATN.Application.EntryVehiclesHandler.Queries.GetVehicleWithConditionQuery;
 using DATN.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,9 @@ namespace DATN.Application.Mapper
             //CreateMap<Accounts, UpdateAccountPassCommand>().ReverseMap();
             //CreateMap<Accounts, UpdateAccountCommand>().ReverseMap();
             CreateMap<EntryVehicles, GetEntryVehiclesPagingResponse>().ReverseMap();
+
+            CreateMap<EntryVehicles, GetVehicleResponse>().ReverseMap();
+            
 
             ////CreateMap<Accounts, GetAccountByImeiResponse>().ReverseMap();
             //CreateMap<Accounts, GetAccountMultipleImeiResponse>().ReverseMap();

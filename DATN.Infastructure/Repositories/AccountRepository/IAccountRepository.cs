@@ -17,7 +17,7 @@ namespace DATN.Infastructure.Repositories.AccountRepository
         Task<Accounts> UpdateAccountAsync(Accounts entity);
         public Task ChangePassword(string userName, string oldPassword, string newPassword);
 
-        Task DeleteAccountByUsername(string Username);
+        Task DeleteAccountByUsername(string username);
         Task<Accounts> GetAccountByUsername(string Username);
         Task<IReadOnlyList<AccountsMa>> BGetPagingAsync(int skip, int pageSize);
         Task<IReadOnlyList<Accounts>> BGetPagingByRoleAsync(int skip, int pageSize, int role);

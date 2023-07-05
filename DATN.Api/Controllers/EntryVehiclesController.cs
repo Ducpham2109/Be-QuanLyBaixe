@@ -1,9 +1,7 @@
-﻿using DATN.Application.AccountHandler.Commands.CreateAccount;
+﻿
 using DATN.Application.AccountHandler.Commands.DeleteAccount;
-using DATN.Application.AccountHandler.Queries.GetAccountPaging;
-using DATN.Application.AccountHandler.Queries.GetAllAccountWithCondition;
-using DATN.Application.BillHandler.Queries.GetRevenveParkingCode;
-using DATN.Application.EntryVehiclesHandler.Commands.DeleteEntryVehicles;
+using DATN.Application.EntryVehiclesHandler.Commands.DeleteEntryVehicle;
+using DATN.Application.EntryVehiclesHandler.Commands.GetEntryVehicles;
 using DATN.Application.EntryVehiclesHandler.CreateEntryVehicles;
 using DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesMonthWithConditionQuery;
 using DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesParkingCodeMonthWithCondition;
@@ -11,8 +9,6 @@ using DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesWithCondi
 
 using DATN.Application.EntryVehiclesHandler.Queries.GetEntryVehiclesPaging;
 using DATN.Application.EntryVehiclesHandler.Queries.GetVehicleWithConditionQuery;
-using DATN.Application.ParkingHandler.Commam.DeleteParking;
-using DATN.Application.ParkingHandler.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -46,6 +42,13 @@ namespace DATN.Api.Controllers
             var result = await _mediator.Send(queries);
             return Ok(result);
         }
+        //[HttpGet("/api/entryVehicles/parkingCode/search")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //public async Task<ActionResult<bool>> GetEntryVehiclesWithCondition([FromQuery] GetEntryVehiclesWithConditionQuery queries)
+        //{
+        //    var result = await _mediator.Send(queries);
+        //    return Ok(result);
+        //}
         [HttpGet("/api/entryVehicles/parkingCode/month")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<bool>> GetAllEntryVehiclesParkingCodeMonthWithCondition([FromQuery] GetAllEntryVehiclesParkingCodeMonthWithConditionQuery queries)
@@ -76,11 +79,19 @@ namespace DATN.Api.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("lisenseVehicle")]
+        [HttpGet("cost")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<bool>> Delete([FromQuery] DeleteEntryVehiclesCommand queries)
+        public async Task<ActionResult<bool>> Get([FromQuery] GetEntryVehiclesCommand queries)
         {
             var result = await _mediator.Send(queries);
+            return Ok(result);
+        }
+        [HttpDelete("IDCard")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> Delete(int IDCard)
+        {
+            var query = new DeleteEntryVehicleCommand(IDCard);
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
 

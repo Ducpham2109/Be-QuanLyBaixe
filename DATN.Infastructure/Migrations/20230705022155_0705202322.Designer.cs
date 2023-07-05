@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DATN.Infastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230701140005_07")]
-    partial class _07
+    [Migration("20230705022155_0705202322")]
+    partial class _0705202322
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,6 +221,33 @@ namespace DATN.Infastructure.Migrations
                     b.HasKey("ParkingCode");
 
                     b.ToTable("Parkings");
+                });
+
+            modelBuilder.Entity("DATN.Core.Entities.Tickets", b =>
+                {
+                    b.Property<int>("IDCard")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Monney")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("TimingCreate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("TimingDelete")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("TimingUpdate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("IDCard");
+
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("DATN.Core.Entities.Bills", b =>

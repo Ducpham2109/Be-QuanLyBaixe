@@ -52,17 +52,16 @@ namespace DATN.Infastructure.Repositories.EntryVehiclesRepository
             return entities;
         }
       
-        public async Task<int> DeleteEntryVehiclesByLisenseVehicle(string lisenseVehicle, string vehicleyType, int parkingCode)
+        public async Task<int> GetEntryVehiclesByLisenseVehicle(int IDCard, int parkingCode)
         {
-            var entity = await _context.Set<EntryVehicles>().FirstOrDefaultAsync(t => t.LisenseVehicle.Equals(lisenseVehicle));
-            entity.IsDeleted = true;
+            var entity = await _context.Set<EntryVehicles>().FirstOrDefaultAsync(t => t.IDCard.Equals(IDCard));
             entity.TimingDelete = System.DateTime.Now;
            
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             var price = await _context.Set<Parkings>()
                              .Where(a => a.IsDeleted == false
-                              && a.ParkingCode == parkingCode
+                              && a.ParkingCode == parkingCode 
                               )
                              .Select(a => new
                              {
@@ -73,29 +72,30 @@ namespace DATN.Infastructure.Repositories.EntryVehiclesRepository
                              })
                              .ToListAsync();
             var vehycle = await _context.Set<EntryVehicles>()
-                          .Where(a => a.IsDeleted == true
+                          .Where(a => a.IsDeleted == false
                            && a.ParkingCode == parkingCode
                           // && a.VehicleyType == vehicleyType
-                           && a.LisenseVehicle == lisenseVehicle
+                           && a.IDCard == IDCard
                            )
+                          .OrderByDescending(a => a.TimingDelete)
                           .Select(a => new
                           {
                               vehicleyType = a.VehicleyType,
                               timeIn = a.TimingCreate,
                               timeOut = a.TimingDelete
                           })
-                        .ToListAsync();
+                        .FirstOrDefaultAsync();
            
             int MnPrice = price.FirstOrDefault()?.MnPrice ?? 0;
             int NmPrice = price.FirstOrDefault()?.NmPrice ?? 0;
             int MmPrice = price.FirstOrDefault()?.MmPrice ?? 0;
             int NnPrice = price.FirstOrDefault()?.NnPrice ?? 0;
             int cost=0;
-            string veType = vehycle.FirstOrDefault()?.vehicleyType??null;
-            var hourIn = vehycle.FirstOrDefault()?.timeIn.Hour ?? null;
-            var hourOut = vehycle.FirstOrDefault()?.timeOut.Hour ?? null;
-            var dayIn = vehycle.FirstOrDefault()?.timeIn.Day ?? null;
-            var dayOut = vehycle.FirstOrDefault()?.timeOut.Day ?? null;
+            string veType = vehycle.vehicleyType;
+            var hourIn = vehycle.timeIn.Hour;
+            var hourOut = vehycle.timeOut.Hour;
+            var dayIn = vehycle.timeIn.Day;
+            var dayOut = vehycle.timeOut.Day;
             int timeIn = (int)(dayIn * 60 + hourIn);
             int timeOut = (int)(dayOut * 60 + hourOut);
             if (veType == "xe oto")
@@ -124,13 +124,27 @@ namespace DATN.Infastructure.Repositories.EntryVehiclesRepository
                     }
                     else cost = MnPrice;
                 }
-                if (timeOut - timeIn >= 12)
+                else
                 {
-                    cost = MmPrice + 5000 * ((timeOut - timeIn) / 12);
+                    if (timeOut - timeIn >= 12)
+                    {
+                        cost = MmPrice + 5000 * ((timeOut - timeIn) / 12);
+                    }
+                    else cost = MmPrice;
                 }
-                else cost = NmPrice;
             }
             return cost;
+        }
+        public async Task DeleteVehicleByIDCard(int idcard)
+        {
+            var entity = await _context.Set<EntryVehicles>()
+                .Where(e => e.IDCard == idcard
+                &&e.IsDeleted==false)
+                .FirstOrDefaultAsync();
+
+            entity.IsDeleted = true;
+            _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
         public class Res
         {
@@ -183,12 +197,20 @@ namespace DATN.Infastructure.Repositories.EntryVehiclesRepository
             m.VehiclesTrueCounter = vehicleTrue;
             return m;
         }
-        public async Task<EntryVehicles> GetVehicleByIDCard(int idCard)
+        public async Task<IReadOnlyList<EntryVehicles>> GetVehicleByIDCard(int idCard)
         {
-            var entity = await _context.Set<EntryVehicles>().Where(a => a.IsDeleted == false
-               &&a.IDCard==idCard).FirstOrDefaultAsync();
+            var entity = await _context.Set<EntryVehicles>()
+    .Where(a => a.IsDeleted == false && a.IDCard == idCard)
+    .ToListAsync();
+
+
             return entity;
 
+        }
+        public async Task<bool> CheckUIDCardExists(int idcard)
+        {
+            return await _context.Set<EntryVehicles>()
+                .AnyAsync(a => a.IDCard == idcard && a.IsDeleted== false);
         }
     }
 }

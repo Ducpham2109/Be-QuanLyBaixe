@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DATN.Infastructure.Migrations
 {
-    public partial class _06062023 : Migration
+    public partial class _070520232 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,15 +51,34 @@ namespace DATN.Infastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tickets",
+                columns: table => new
+                {
+                    IDCard = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Monney = table.Column<int>(type: "integer", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    TimingCreate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    TimingUpdate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    TimingDelete = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tickets", x => x.IDCard);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EntryVehicles",
                 columns: table => new
                 {
                     LisenseVehicle = table.Column<string>(type: "text", nullable: false),
                     EntryTime = table.Column<string>(type: "text", nullable: false),
                     Username = table.Column<string>(type: "text", nullable: true),
+                    IDCard = table.Column<int>(type: "integer", nullable: false),
                     VehicleyType = table.Column<string>(type: "text", nullable: true),
                     ParkingCode = table.Column<int>(type: "integer", nullable: false),
                     Image = table.Column<string>(type: "text", nullable: true),
+                    AccountUsername = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     TimingCreate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     TimingUpdate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -69,8 +88,8 @@ namespace DATN.Infastructure.Migrations
                 {
                     table.PrimaryKey("PK_EntryVehicles", x => new { x.LisenseVehicle, x.EntryTime });
                     table.ForeignKey(
-                        name: "FK_EntryVehicles_Accounts_Username",
-                        column: x => x.Username,
+                        name: "FK_EntryVehicles_Accounts_AccountUsername",
+                        column: x => x.AccountUsername,
                         principalTable: "Accounts",
                         principalColumn: "Username",
                         onDelete: ReferentialAction.Restrict);
@@ -87,7 +106,7 @@ namespace DATN.Infastructure.Migrations
                 columns: table => new
                 {
                     Username = table.Column<string>(type: "text", nullable: false),
-                    ParkingCode = table.Column<int>(type: "integer", nullable: false),
+                    ParkingCode = table.Column<int>(type: "integer", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     TimingCreate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     TimingUpdate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -107,7 +126,7 @@ namespace DATN.Infastructure.Migrations
                         column: x => x.ParkingCode,
                         principalTable: "Parkings",
                         principalColumn: "ParkingCode",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -156,14 +175,14 @@ namespace DATN.Infastructure.Migrations
                 column: "ParkingCode");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EntryVehicles_AccountUsername",
+                table: "EntryVehicles",
+                column: "AccountUsername");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EntryVehicles_ParkingCode",
                 table: "EntryVehicles",
                 column: "ParkingCode");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EntryVehicles_Username",
-                table: "EntryVehicles",
-                column: "Username");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Managements_ParkingCode",
@@ -178,6 +197,9 @@ namespace DATN.Infastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Managements");
+
+            migrationBuilder.DropTable(
+                name: "Tickets");
 
             migrationBuilder.DropTable(
                 name: "EntryVehicles");

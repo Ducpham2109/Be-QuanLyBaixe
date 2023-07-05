@@ -15,10 +15,11 @@ namespace DATN.Infastructure.Repositories.EntryVehiclesRepository
         Task<List<EntryVehicles>> GetAllEntryVehiclesWithCondition(string searchTerm,int parkingCode);
         Task<IReadOnlyList<EntryVehicles>> BGetPagingAsync(int skip, int pageSize);
         Task<int> BGetTotalAsync();
-        Task<int> DeleteEntryVehiclesByLisenseVehicle(string lisenseVehicle, string vehicleyType, int parkingCode);
+        Task<int> GetEntryVehiclesByLisenseVehicle(int IDCard, int parkingCode);
         Task<Res> GetTotalVehyclesByParkingCode(int parkingCode, int month);
-        Task<EntryVehicles> GetVehicleByIDCard(int idCard);
-
+        Task<IReadOnlyList<EntryVehicles>> GetVehicleByIDCard(int idCard);
+        Task<bool> CheckUIDCardExists(int idcard);
+        Task DeleteVehicleByIDCard(int idcard);
         Task<Res> GetTotalVehyclesByMonth( int month); 
         Task<bool> CheckLisenseExists(string lisenseVehicle);
 

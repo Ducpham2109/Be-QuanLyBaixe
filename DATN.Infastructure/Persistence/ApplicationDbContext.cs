@@ -28,6 +28,7 @@ namespace DATN.Infastructure.Persistence
             modelBuilder.EntryVehiclesConfigTable();
             modelBuilder.ManagementsConfigTable();
             modelBuilder.ParkingsConfigTable();
+            modelBuilder.TicketsConfigTable();
          
            
             

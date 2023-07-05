@@ -12,6 +12,8 @@ namespace DATN.Infastructure.Repositories.BillRepository
     {
         Task<Bills> AddBillAsync(Bills entity);
         Task<List<Bills>> GetAllBillWithCondition(string searchTerm);
+        Task<List<Bills>> GetBillParkingCodeWithCondition(string searchTerm, int parkingCode);
+
         Task<IReadOnlyList<Bills>> BGetPagingAsync(int skip, int pageSize);
         Task<IReadOnlyList<Bills>> BGetPagingByParkingCodeAsync(int skip, int pageSize, int parkingCode);
 

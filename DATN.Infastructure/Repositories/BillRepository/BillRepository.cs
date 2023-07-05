@@ -26,6 +26,22 @@ namespace DATN.Infastructure.Repositories.BillRepository
             await _context.SaveChangesAsync(); // lưu vao database
             return entity;
         }
+        
+            public async Task<List<Bills>> GetBillParkingCodeWithCondition(string searchTerm, int parkingCode)
+        {
+            var context = _context as ApplicationDbContext;
+            var Bill = await context.Bills
+                                .Where(d => (d.Username.Contains(searchTerm)
+                                    || d.EntryTime.Contains(searchTerm)
+                                    || d.OutTime.Contains(searchTerm)
+                                    || d.LisenseVehicle.Contains(searchTerm)
+
+                                    )
+                                    && d.IsDeleted == false
+                                   && d.ParkingCode== parkingCode)
+                                .ToListAsync();
+            return Bill;
+        }
         public async Task<List<Bills>> GetAllBillWithCondition(string searchTerm)
         {
             var context = _context as ApplicationDbContext;

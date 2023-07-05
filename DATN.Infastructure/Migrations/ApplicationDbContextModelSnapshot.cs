@@ -221,6 +221,33 @@ namespace DATN.Infastructure.Migrations
                     b.ToTable("Parkings");
                 });
 
+            modelBuilder.Entity("DATN.Core.Entities.Tickets", b =>
+                {
+                    b.Property<int>("IDCard")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Monney")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("TimingCreate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("TimingDelete")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("TimingUpdate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("IDCard");
+
+                    b.ToTable("Tickets");
+                });
+
             modelBuilder.Entity("DATN.Core.Entities.Bills", b =>
                 {
                     b.HasOne("DATN.Core.Entities.Parkings", "Parking")

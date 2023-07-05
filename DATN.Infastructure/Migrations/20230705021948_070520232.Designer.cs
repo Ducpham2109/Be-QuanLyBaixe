@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DATN.Infastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230606153826_06062023")]
-    partial class _06062023
+    [Migration("20230705021948_070520232")]
+    partial class _070520232
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -112,6 +112,12 @@ namespace DATN.Infastructure.Migrations
                     b.Property<string>("EntryTime")
                         .HasColumnType("text");
 
+                    b.Property<string>("AccountUsername")
+                        .HasColumnType("text");
+
+                    b.Property<int>("IDCard")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Image")
                         .HasColumnType("text");
 
@@ -138,9 +144,9 @@ namespace DATN.Infastructure.Migrations
 
                     b.HasKey("LisenseVehicle", "EntryTime");
 
-                    b.HasIndex("ParkingCode");
+                    b.HasIndex("AccountUsername");
 
-                    b.HasIndex("Username");
+                    b.HasIndex("ParkingCode");
 
                     b.ToTable("EntryVehicles");
                 });
@@ -153,7 +159,7 @@ namespace DATN.Infastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("ParkingCode")
+                    b.Property<int?>("ParkingCode")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("TimingCreate")
@@ -217,6 +223,33 @@ namespace DATN.Infastructure.Migrations
                     b.ToTable("Parkings");
                 });
 
+            modelBuilder.Entity("DATN.Core.Entities.Tickets", b =>
+                {
+                    b.Property<int>("IDCard")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Monney")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("TimingCreate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("TimingDelete")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("TimingUpdate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("IDCard");
+
+                    b.ToTable("Tickets");
+                });
+
             modelBuilder.Entity("DATN.Core.Entities.Bills", b =>
                 {
                     b.HasOne("DATN.Core.Entities.Parkings", "Parking")
@@ -237,15 +270,15 @@ namespace DATN.Infastructure.Migrations
 
             modelBuilder.Entity("DATN.Core.Entities.EntryVehicles", b =>
                 {
+                    b.HasOne("DATN.Core.Entities.Accounts", "Account")
+                        .WithMany("EntryVehicles")
+                        .HasForeignKey("AccountUsername");
+
                     b.HasOne("DATN.Core.Entities.Parkings", "Parking")
                         .WithMany("EntryVehicles")
                         .HasForeignKey("ParkingCode")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("DATN.Core.Entities.Accounts", "Account")
-                        .WithMany("EntryVehicles")
-                        .HasForeignKey("Username");
 
                     b.Navigation("Account");
 
@@ -256,9 +289,7 @@ namespace DATN.Infastructure.Migrations
                 {
                     b.HasOne("DATN.Core.Entities.Parkings", "Parking")
                         .WithMany("Managements")
-                        .HasForeignKey("ParkingCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParkingCode");
 
                     b.HasOne("DATN.Core.Entities.Accounts", "Account")
                         .WithOne("Management")

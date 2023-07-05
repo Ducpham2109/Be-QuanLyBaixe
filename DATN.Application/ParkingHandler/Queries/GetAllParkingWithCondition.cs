@@ -61,7 +61,7 @@ namespace DATN.Application.ParkingHandler.Queries
                 result.MnPrice = Parking.MnPrice;
                 result.MmPrice = Parking.MmPrice;
                 result.NnPrice = Parking.NnPrice;
-                result.NnPrice = Parking.NnPrice;
+                result.NmPrice = Parking.NmPrice;
                 result.Capacity = Parking.Capacity;
                 results.Add(result);
             }

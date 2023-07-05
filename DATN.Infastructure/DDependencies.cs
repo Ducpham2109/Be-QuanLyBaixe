@@ -6,6 +6,7 @@ using DATN.Infastructure.Repositories.EmailReponsitory;
 using DATN.Infastructure.Repositories.EntryVehiclesRepository;
 using DATN.Infastructure.Repositories.ManagementRepository;
 using DATN.Infastructure.Repositories.ParkingRepository;
+using DATN.Infastructure.Repositories.TicketRepository;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -23,6 +24,7 @@ namespace DATN.Infastructure
             services.AddTransient<IEntryVehiclesRepository, EntryVehiclesRepository>();
             services.AddTransient<IBillRepository, BillRepository>();
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<ITicketRepository, TicketRepository>();
 
 
 
