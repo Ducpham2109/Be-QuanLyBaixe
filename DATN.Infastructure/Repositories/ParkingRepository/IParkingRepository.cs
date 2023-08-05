@@ -15,9 +15,12 @@ namespace DATN.Infastructure.Repositories.ParkingRepository
         
         Task DeleteParkingByUsername(int ParkingCode);
         Task<Parkings> GetParkingByIdAsync(int ParkingCode);
+        Task<bool> CheckParking(int parkingCode); 
+        Task<bool> UpdatePreLoading(int parkingCode, int preLoading); 
+
         Task<List<Parkings>> GetAllParkingWithCondition(string searchTerm);
         Task<IReadOnlyList<Parkings>> BGetPagingAsync(int skip, int pageSize); 
-        Task<IReadOnlyList<Parkings>> BGetPagingByParkingCodeAsync(int skip, int pageSize, int parkingCode); 
+        Task<IReadOnlyList<Parkings>> BGetPagingByParkingCodeAsync( int parkingCode); 
             
         Task<int> BGetTotalAsync();
         Task<int> GetCapacitybyParkingCode(int parkingCode);

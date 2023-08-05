@@ -1,4 +1,5 @@
-﻿using DATN.Application.Mapper;
+﻿using DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesMonthWithConditionQuery;
+using DATN.Application.Mapper;
 using DATN.Application.Models;
 using DATN.Core.Entities;
 using DATN.Infastructure.Repositories.AccountRepository;
@@ -16,8 +17,9 @@ namespace DATN.Application.TicketHanler.Commands.CreateTicket
     public class CreateTicketCommand : IRequest<BResult>
     {
         public int IDCard { get; set; }
-        public int Money { get; set; }
+        public int Monney { get; set; }
         public bool IsDeleted { get; set; }
+        public int ParkingCode { get; set; }
         public DateTime TimingCreate { get; set; }
         public DateTime TimingUpdate { get; set; }
         public DateTime TimingDelete { get; set; }
@@ -43,7 +45,7 @@ namespace DATN.Application.TicketHanler.Commands.CreateTicket
             //}
             //else
             //{
-                var result = await _accRepository.AddTicketAsync(entity, request.IDCard, request.Money);
+                var result = await _accRepository.AddTicketAsync(entity, request.IDCard, request.Monney,request.ParkingCode);
                 return BResult.Success();
            // }
         }

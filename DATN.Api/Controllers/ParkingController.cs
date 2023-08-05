@@ -34,6 +34,13 @@ namespace DATN.Api.Controllers
             var result = await _mediator.Send(command);
             return result.Succeeded ? Ok(result) : BadRequest(result);
         }
+        [HttpPost("UpdatePerLoading")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> Create([FromBody] UpdatePreParkingCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return result.Succeeded ? Ok(result) : BadRequest(result);
+        }
         [HttpDelete("PakingCode")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<bool>> Delete(int ParkingCode)
@@ -64,6 +71,7 @@ namespace DATN.Api.Controllers
             var result = await _mediator.Send(queries);
             return Ok(result);
         }
+
         [HttpGet("parkingCode")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<bool>> Get([FromQuery] GetParkingPagingWithConditionQuery queries)

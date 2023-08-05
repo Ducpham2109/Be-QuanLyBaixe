@@ -13,9 +13,8 @@ namespace DATN.Application.ParkingHandler.Queries.GetParkingPagingWithConditionQ
 {
     public class GetParkingPagingWithConditionQuery : IRequest<BResult<BPaging<GetParkingPagingWithConditionQueryResponse>>>
     {
-        public int Skip { get; set; }
-        public int PageSize { get; set; }
-        public int parkingCode { get; set; }
+
+        public int ParkingCode { get; set; }
     }
     public class GetParkingPagingWithConditionQueryResponse
     {
@@ -41,7 +40,7 @@ namespace DATN.Application.ParkingHandler.Queries.GetParkingPagingWithConditionQ
         public async Task<BResult<BPaging<GetParkingPagingWithConditionQueryResponse>>> Handle(GetParkingPagingWithConditionQuery request, CancellationToken cancellationToken)
         {
 
-            var entities = await _accRepository.BGetPagingByParkingCodeAsync(request.Skip, request.PageSize, request.parkingCode);
+            var entities = await _accRepository.BGetPagingByParkingCodeAsync(request.ParkingCode);
             var items = ParkingMapper.Mapper.Map<List<GetParkingPagingWithConditionQueryResponse>>(entities);
           
             var total = await _accRepository.BGetTotalAsync();
@@ -50,7 +49,7 @@ namespace DATN.Application.ParkingHandler.Queries.GetParkingPagingWithConditionQ
             //    item.ParkingCode = request.ParkingCode;
             //    // Thêm điều kiện cho các thuộc tính khác tùy theo yêu cầu của bạn
             //});
-            var filteredItems = items.Where(item => item.ParkingCode == request.parkingCode).ToList();
+            var filteredItems = items.Where(item => item.ParkingCode == request.ParkingCode).ToList();
 
 
             var result = new BPaging<GetParkingPagingWithConditionQueryResponse>()

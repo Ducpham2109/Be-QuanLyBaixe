@@ -25,8 +25,7 @@ namespace DATN.Application.BillsHandler.Commands.CreateBills
         public string OutTime { get; set; }
         public int ParkingCode { get; set; }
         public int Cost { get; set; }
-        public string ImageIn { get; set; }
-        public string ImageOut { get; set; }
+    
         public DateTime TimingCreate { get; set; }
         public DateTime TimingUpdate { get; set; }
         public DateTime TimingDelete { get; set; }

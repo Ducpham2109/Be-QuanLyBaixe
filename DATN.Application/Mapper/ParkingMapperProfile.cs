@@ -25,6 +25,7 @@ namespace DATN.Application.Mapper
             CreateMap<Parkings, GetParkingResponse>().ReverseMap();
             CreateMap<Parkings, GetParkingPagingResponse>().ReverseMap();
             CreateMap<Parkings, GetParkingPagingWithConditionQueryResponse>().ReverseMap();
+            CreateMap<Parkings, UpdatePreParkingCommand>().ReverseMap();
 
             CreateMap<Parkings, UpdateParkingCommand>().ReverseMap(); 
 

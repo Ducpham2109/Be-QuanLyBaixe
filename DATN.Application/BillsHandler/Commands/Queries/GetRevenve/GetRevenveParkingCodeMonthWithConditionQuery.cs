@@ -26,6 +26,8 @@ namespace DATN.Application.BillsHandler.Commands.Queries.GetRevenveParkingCode
     public class GetRevenveParkingMonthWithConditionQueryResponse
     {
         public int Revenve { get; set; }
+        public int PreLoading { get; set; }
+
     }
     public class GetRevenveParkingMonthWithConditionQueryHandler : IRequestHandler<GetRevenveParkingMonthWithConditionQuery, GetRevenveParkingMonthWithConditionQueryResponse
 >
@@ -39,8 +41,10 @@ namespace DATN.Application.BillsHandler.Commands.Queries.GetRevenveParkingCode
         public async Task<GetRevenveParkingMonthWithConditionQueryResponse> Handle(GetRevenveParkingMonthWithConditionQuery request, CancellationToken cancellationToken)
         {
             var revenve = await _BillRepository.GetRevenveByParkingCodeMonth(request.Month, request.ParkingCode);
+            var preLoading = await _BillRepository.GetpreLoading(request.ParkingCode);
             GetRevenveParkingMonthWithConditionQueryResponse m = new GetRevenveParkingMonthWithConditionQueryResponse();
             m.Revenve = revenve;
+            m.PreLoading = preLoading;
             return m;
 
         }

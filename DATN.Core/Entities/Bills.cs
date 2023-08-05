@@ -17,6 +17,7 @@ namespace DATN.Core.Entities
         public string OutTime { get; set; }
         public int ParkingCode { get; set; }
         public int Cost { get; set; }
+        public int IDCard { get; set; }
         public Parkings Parking { get; set; }
         public EntryVehicles EntryVehicle { get; set; }
     }

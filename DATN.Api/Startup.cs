@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using static DATN.Infastructure.Repositories.EmailReponsitory.EmailService;
+using DATN.Api.Controllers;
 
 namespace DATN.Api
 {
@@ -44,7 +45,6 @@ namespace DATN.Api
 
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
 
-            services.AddCors();
             //services.AddMediatR(typeof(CreateAccountCommandHandler));
             //services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -79,11 +79,11 @@ namespace DATN.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DATN.Api v1"));
-            
+
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DATN.Api v1"));
+
             app.UseCors(x => x
                 .AllowAnyMethod()
                 .AllowAnyHeader()
@@ -99,6 +99,8 @@ namespace DATN.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<NotificationHub>("/api/hubs/notifications");
+
             });
         }
     }

@@ -1,8 +1,10 @@
 ﻿using DATN.Application.AccountHandler.Commands.CreateAccount;
 using DATN.Application.AccountHandler.Commands.DeleteAccount;
 using DATN.Application.AccountHandler.Commands.UpdateAccount;
+using DATN.Application.EntryVehiclesHandler.Queries.GetAllEntryVehiclesWithCondition;
 using DATN.Application.TicketHanler.Commands.CreateTicket;
 using DATN.Application.TicketHanler.Commands.UpdateTicket;
+using DATN.Application.TicketHanler.Queries.GetTicketWithCommand;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,20 +45,13 @@ namespace DATN.Api.Controllers
             var result = await _mediator.Send(command);
             return result.Succeeded ? Ok(result) : BadRequest(result);
         }
-        //[HttpPut]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public async Task<ActionResult<bool>> Update([FromBody] UpdateAccountCommand command)
-        //{
-        //    var result = await _mediator.Send(command);
-        //    return result.Succeeded ? Ok(result) : BadRequest(result);
-        //}
-        //[HttpDelete("username")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public async Task<ActionResult<bool>> Delete(string Username)
-        //{
-        //    var query = new DeleteAccountCommand(Username);
-        //    var result = await _mediator.Send(query);
-        //    return Ok(result);
-        //}
+        [HttpGet("ticket/IdCard")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> GetTicketWithCondition([FromQuery] GetTicketWithConditionQuery queries)
+        {
+            var result = await _mediator.Send(queries);
+            return Ok(result);
+        }
+
     }
 }

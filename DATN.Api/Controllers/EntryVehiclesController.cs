@@ -41,14 +41,7 @@ namespace DATN.Api.Controllers
         {
             var result = await _mediator.Send(queries);
             return Ok(result);
-        }
-        //[HttpGet("/api/entryVehicles/parkingCode/search")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public async Task<ActionResult<bool>> GetEntryVehiclesWithCondition([FromQuery] GetEntryVehiclesWithConditionQuery queries)
-        //{
-        //    var result = await _mediator.Send(queries);
-        //    return Ok(result);
-        //}
+        }  
         [HttpGet("/api/entryVehicles/parkingCode/month")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<bool>> GetAllEntryVehiclesParkingCodeMonthWithCondition([FromQuery] GetAllEntryVehiclesParkingCodeMonthWithConditionQuery queries)

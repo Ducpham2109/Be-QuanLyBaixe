@@ -17,11 +17,16 @@ namespace DATN.Infastructure.Repositories.TicketRepository
         {
 
         }
-        public async Task<Tickets> AddTicketAsync(Tickets entity, int idCard, int money)
+        public async Task<Tickets> AddTicketAsync(Tickets entity, int idCard, int money, int parkingCode)
         {
             var ticket = await _context.Set<Tickets>()
                .Where(a => a.IDCard == idCard && a.IsDeleted == false)
                .FirstOrDefaultAsync();
+            var parking = await _context.Set<Parkings>()
+                .Where(b => b.ParkingCode == parkingCode && b.IsDeleted == false)
+                .FirstOrDefaultAsync();
+                parking.PreLoading = parking.PreLoading + money;
+                await _context.SaveChangesAsync();
             if (ticket == null)
             {
                 entity.TimingCreate = System.DateTime.Now;
@@ -61,6 +66,12 @@ namespace DATN.Infastructure.Repositories.TicketRepository
         }
             await _context.SaveChangesAsync();
             return ticket.Monney;
+        }
+        public async Task<Tickets> GetTicketWithConditionQuery(int idcard)
+        {
+            var entity = await _context.Set<Tickets>().Where(a => a.IsDeleted == false
+            &&a.IDCard==idcard).FirstOrDefaultAsync();
+            return entity;
         }
     }
 }

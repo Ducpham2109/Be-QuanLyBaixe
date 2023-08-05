@@ -11,15 +11,13 @@ using System.Threading.Tasks;
 
 namespace DATN.Infastructure.Repositories.ParkingRepository
 {
-   
+
     public class ParkingRepository : Repository<Parkings>, IParkingRepository
     {
         public ParkingRepository(ApplicationDbContext context) : base(context)
         {
 
         }
-
-
         public async Task<Parkings> AddParkingAsync(Parkings entity)
         {
             entity.TimingCreate = System.DateTime.Now;
@@ -55,17 +53,34 @@ namespace DATN.Infastructure.Repositories.ParkingRepository
                                 .ToListAsync();
             return parkings;
         }
+        public async Task<bool> CheckParking(int parkingCode)
+        {
+            return await _context.Set<Parkings>()
+                .AnyAsync(a => a.ParkingCode == parkingCode && !a.IsDeleted);
+        }
+        public async Task<bool> UpdatePreLoading(int parkingCode, int preLoading)
+        {
+            var parking = await _context.Set<Parkings>()
+                .Where(a=> a.ParkingCode == parkingCode && a.IsDeleted == false)
+                .FirstOrDefaultAsync(); 
+            parking.PreLoading= parking.PreLoading-preLoading;
+            if(parking.PreLoading < 0)
+            {
+                return false;
+            }
+            await _context.SaveChangesAsync();
+            return true;
+        }
         public async Task<IReadOnlyList<Parkings>> BGetPagingAsync(int skip, int pageSize)
         {
             return await _context.Set<Parkings>().Where(a => a.IsDeleted == false).Skip(skip).Take(pageSize).ToListAsync();
         }
-        public async Task<IReadOnlyList<Parkings>> BGetPagingByParkingCodeAsync(int skip, int pageSize, int pakingCode)
+        public async Task<IReadOnlyList<Parkings>> BGetPagingByParkingCodeAsync(int parkingCode)
         {
-            var entity = await _context.Set<Parkings>().Where(a => a.IsDeleted == false )
-                .Skip(skip)
-                .Take(pageSize)
+            var entity = await _context.Set<Parkings>().Where(a => a.IsDeleted == false && a.ParkingCode == parkingCode)
+
                 .ToListAsync();
-            
+
             return entity;
         }
         //public async Task<IReadOnlyList<Parkings>> BGetPagingByParkingCodeAsync(int skip, int pageSize, int parkingCode)

@@ -94,8 +94,14 @@ namespace DATN.Infastructure.Repositories.BillRepository
                               .Select(a => a.Cost)
                               .SumAsync();
             return totalCost;
-
-
+        }
+        public async Task<int> GetpreLoading(int parkingCode)
+        {
+            var perLoading = await _context.Set<Parkings>()
+                  .Where(a => a.IsDeleted == false
+                              && a.ParkingCode == parkingCode)
+                  .Select(a=> a.PreLoading).FirstOrDefaultAsync();
+            return perLoading;
         }
         public async Task<int> GetRevenveByParkingCodeMonthDay( int parkingCode, int month, int day)
 
@@ -109,11 +115,11 @@ namespace DATN.Infastructure.Repositories.BillRepository
                               .SumAsync();
             return totalCost;
         }
-        public async Task<IReadOnlyList<Bills>> GetVehiclesSentByUserName(string UserName)
+        public async Task<IReadOnlyList<Bills>> GetVehiclesSentByIDCard(int idcard)
         {
             var entities = await _context.Set<Bills>()
                 .Where(a => a.IsDeleted == false
-                && a.Username == UserName)
+                && a.IDCard == idcard)
                 .ToListAsync();
             return entities;
         }

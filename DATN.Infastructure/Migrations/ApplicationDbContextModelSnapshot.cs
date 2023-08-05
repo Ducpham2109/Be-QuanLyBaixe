@@ -66,6 +66,9 @@ namespace DATN.Infastructure.Migrations
                     b.Property<string>("EntryTime")
                         .HasColumnType("text");
 
+                    b.Property<int>("IDCard")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
@@ -206,6 +209,9 @@ namespace DATN.Infastructure.Migrations
 
                     b.Property<string>("ParkingName")
                         .HasColumnType("text");
+
+                    b.Property<int>("PreLoading")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("TimingCreate")
                         .HasColumnType("timestamp without time zone");

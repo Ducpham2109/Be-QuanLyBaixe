@@ -18,7 +18,7 @@ namespace DATN.Api.Controllers
 {
     [Route("api/bill")]
     [ApiController]
-    public class BillController : Controller
+    public class BillController : Microsoft.AspNetCore.Mvc.Controller
     {
         private readonly IMediator _mediator;
 
@@ -83,7 +83,7 @@ namespace DATN.Api.Controllers
             var result = await _mediator.Send(queries);
             return Ok(result);
         }
-        [HttpGet("/api/bill/userName")]
+        [HttpGet("/api/bill/IDCard")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<bool>> GetVehiclesSent([FromQuery] GetVehiclesSentWithConditionQuery queries)
         {

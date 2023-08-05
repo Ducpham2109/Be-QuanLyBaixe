@@ -13,7 +13,7 @@ namespace DATN.Application.BillsHandler.Commands.Queries.GetBillPagingWithCondit
 {
     public class GetVehiclesSentWithConditionQuery : IRequest<BResult<BPaging<GetVehiclesSentWithConditionQueryResponse>>>
     {
-        public string UserName { get; set; }
+        public int IDCard { get; set; }
     }
     public class GetVehiclesSentWithConditionQueryResponse
     {
@@ -26,6 +26,7 @@ namespace DATN.Application.BillsHandler.Commands.Queries.GetBillPagingWithCondit
         public string OutTime { get; set; }
         public int ParkingCode { get; set; }
         public int Cost { get; set; }
+        public int IDCard { get; set; }
         public DateTime TimingCreate { get; set; }
         public DateTime TimingUpdate { get; set; }
         public DateTime TimingDelete { get; set; }
@@ -41,7 +42,8 @@ namespace DATN.Application.BillsHandler.Commands.Queries.GetBillPagingWithCondit
         }
         public async Task<BResult<BPaging<GetVehiclesSentWithConditionQueryResponse>>> Handle(GetVehiclesSentWithConditionQuery request, CancellationToken cancellationToken)
         {
-            var entities = await _accRepository.GetVehiclesSentByUserName(request.UserName);
+
+            var entities = await _accRepository.GetVehiclesSentByIDCard(request.IDCard);
             var items = BillsMapper.Mapper.Map<List<GetVehiclesSentWithConditionQueryResponse>>(entities);
             var total = await _accRepository.BGetTotalAsync();
 
